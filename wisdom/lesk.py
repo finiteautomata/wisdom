@@ -2,8 +2,7 @@ from nltk.corpus import wordnet as wn
 from nltk.stem import PorterStemmer
 from itertools import chain
 
-bank_sents = ['I went to the bank to deposit my money',
-'The river bank was full of dead fishes']
+'The river bank was full of dead fishes'
 
 plant_sents = ['The workers at the industrial plant were overworked',
 'The plant was no longer bearing flowers']
