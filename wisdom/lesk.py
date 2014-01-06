@@ -2,10 +2,7 @@ from nltk.corpus import wordnet as wn
 from nltk.stem import PorterStemmer
 from itertools import chain
 
-'The river bank was full of dead fishes'
 
-plant_sents = ['The workers at the industrial plant were overworked',
-'The plant was no longer bearing flowers']
 
 ps = PorterStemmer()
 
@@ -38,21 +35,3 @@ def lesk(context_sentence, ambiguous_word, pos=None, stem=True, hyperhypo=True):
             lesk_sense = ss
             max_overlaps = len(overlaps)
     return lesk_sense
-
-# print "Context:", bank_sents[0]
-# answer = lesk(bank_sents[0],'bank')
-# print "Sense:", answer
-# print "Definition:",answer.definition
-# print
-
-# print "Context:", bank_sents[1]
-# answer = lesk(bank_sents[1],'bank','n')
-# print "Sense:", answer
-# print "Definition:",answer.definition
-# print
-
-# print "Context:", plant_sents[0]
-# answer = lesk(plant_sents[0],'plant','n', True)
-# print "Sense:", answer
-# print "Definition:",answer.definition
-# print
