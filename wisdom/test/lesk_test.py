@@ -1,5 +1,4 @@
 #! coding:utf-8
-
 from unittest import TestCase
 from nltk.corpus import wordnet as wn
 from wisdom import lesk
@@ -20,3 +19,7 @@ class LeskTest(TestCase):
         sent = 'The workers at the industrial plant were overworked'
 
         self.assertEqual(lesk(sent, 'plant'), wn.synset("plant.n.01"))
+
+    def test_ignores_punctuation(self):
+        sent = 'The river, bank was full of dead fishes, so we went elsewhere'
+        self.assertEqual(lesk(sent, 'bank'), wn.synset("bank.n.01"))
