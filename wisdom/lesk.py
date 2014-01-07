@@ -1,4 +1,5 @@
 #! coding:utf-8
+import functools
 from nltk.corpus import wordnet as wn
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
@@ -22,8 +23,7 @@ def __build_dictionary(synset, hyperhypo):
     return filter(lambda word: word not in english_stopwords, lesk_dictionary)
 
 
-
-def lesk(context_sentence, ambiguous_word, pos=None, stem=True, hyperhypo=True):
+def base_lesk(context_sentence, ambiguous_word, pos, stem, build_dictionary_function):
     max_overlaps = 0
     lesk_sense = None
     
@@ -32,9 +32,9 @@ def lesk(context_sentence, ambiguous_word, pos=None, stem=True, hyperhypo=True):
         if pos and ss.pos != pos:
             continue
 
-        lesk_dictionary = __build_dictionary(synset=ss, hyperhypo=hyperhypo)
+        lesk_dictionary = build_dictionary_function(ss)
         # Matching exact words causes sparsity, so lets match stems.
-        if stem: 
+        if stem:
             lesk_dictionary = [ps.stem(i) for i in lesk_dictionary]
             context_sentence = [ps.stem(i) for i in context_sentence] 
 
@@ -44,3 +44,13 @@ def lesk(context_sentence, ambiguous_word, pos=None, stem=True, hyperhypo=True):
             lesk_sense = ss
             max_overlaps = len(overlaps)
     return lesk_sense
+
+
+
+
+def lesk(context_sentence, ambiguous_word, pos=None, stem=True, hyperhypo=True):
+    return base_lesk(context_sentence, 
+        ambiguous_word, 
+        pos, 
+        stem, 
+        functools.partial(__build_dictionary, hyperhypo=hyperhypo))
