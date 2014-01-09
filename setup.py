@@ -6,4 +6,5 @@ setup(name='wisdom',
       author_email="jmperez.85@gmail.com",
       url="https://github.com/geekazoid/wisdom",
       packages=['wisdom'],
+      install_requires=["nltk"],
       )
