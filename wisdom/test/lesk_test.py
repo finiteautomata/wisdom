@@ -1,7 +1,7 @@
 #! coding:utf-8
 from unittest import TestCase
 from nltk.corpus import wordnet as wn
-from wisdom import lesk
+from wisdom import lesk, NoSenseFound
 
 class LeskTest(TestCase):
     def test_for_financial_bank_sense_it_returns_that_one(self):
@@ -23,3 +23,8 @@ class LeskTest(TestCase):
     def test_ignores_punctuation(self):
         sent = 'The river, bank was full of dead fishes, so we went elsewhere'
         self.assertEqual(lesk(sent, 'bank'), wn.synset("bank.n.01"))
+
+    def test_raises_exception_when_no_sense_possible(self):
+        with self.assertRaises(NoSenseFound):
+            sent = "Bank spam bacon egg"
+            lesk(sent, 'bank')

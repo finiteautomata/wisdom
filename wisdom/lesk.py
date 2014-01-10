@@ -4,6 +4,7 @@ from nltk.corpus import wordnet as wn
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from utils import tokenize
+from exceptions import NoSenseFound
 
 
 ps = PorterStemmer()
@@ -43,6 +44,8 @@ def base_lesk(context_sentence, ambiguous_word, pos, stem, build_dictionary_func
         if len(overlaps) > max_overlaps:
             lesk_sense = ss
             max_overlaps = len(overlaps)
+    if not lesk_sense:
+        raise NoSenseFound
     return lesk_sense
 
 
