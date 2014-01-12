@@ -11,7 +11,6 @@ class LeskTest(TestCase):
 
     def test_for_river_bank_sense(self):
         sent = 'The river bank was full of dead fishes'
-
         self.assertEqual(lesk(sent, 'bank'), wn.synset("bank.n.01"))
 
 
