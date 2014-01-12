@@ -27,3 +27,8 @@ class LeskTest(TestCase):
         with self.assertRaises(NoSenseFound):
             sent = "Bank spam bacon egg"
             lesk(sent, 'bank')
+
+    def test_raises_exception_when_word_with_no_lemmas_associated(self):
+        with self.assertRaises(NoSenseFound):
+            sent = '1982 was my first year'
+            lesk(sent, '1982')

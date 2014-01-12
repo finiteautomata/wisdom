@@ -27,7 +27,6 @@ def __build_dictionary(synset, hyperhypo):
 
     return filter(lambda word: word not in english_stopwords, lesk_dictionary)
 
-
 def compute_overlap(context_sentence, synset, stem, build_dictionary_function):
     word_gloss = build_dictionary_function(synset)
     # Matching exact words causes sparsity, so lets match stems.
@@ -49,6 +48,11 @@ def base_lesk(context_sentence, ambiguous_word, pos, stem, build_dictionary_func
         raise NoSenseFound("Word not found in sentence")
 
     overlaps = {}
+    synsets = wn.synsets(ambiguous_word)
+
+    if len(synsets) == 0:
+        raise NoSenseFound("Word has no possible senses")
+
     for synset in wn.synsets(ambiguous_word):
         if pos and synset.pos != pos:
             continue
