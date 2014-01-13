@@ -25,7 +25,7 @@ class LeskTest(TestCase):
 
     def test_raises_exception_when_no_sense_possible(self):
         with self.assertRaises(NoSenseFound):
-            sent = "Bank spam bacon egg"
+            sent = "spam bacon egg"
             lesk(sent, 'bank')
 
     def test_raises_exception_when_word_with_no_lemmas_associated(self):

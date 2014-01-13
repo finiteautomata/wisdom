@@ -25,7 +25,8 @@ def __build_dictionary(synset, hyperhypo):
             lesk_dictionary+= tokenize(related_sense.definition)
             lesk_dictionary+= [lemma.name for lemma in related_sense.lemmas]
 
-    return filter(lambda word: word not in english_stopwords, lesk_dictionary)
+    without_stop_words = filter(lambda word: word not in english_stopwords , lesk_dictionary)
+    return map(lambda word: word.lower(), without_stop_words)
 
 def compute_overlap(context_sentence, synset, stem, build_dictionary_function):
     word_gloss = build_dictionary_function(synset)
