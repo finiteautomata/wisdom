@@ -59,6 +59,9 @@ def base_lesk(context_sentence, ambiguous_word, pos, stem, build_dictionary_func
             continue
         overlaps[synset] = compute_overlap(context_sentence, synset, stem, build_dictionary_function)
     
+    if len(overlaps) == 0:
+        raise NoSenseFound("No sense possible for this Part of Speech")
+
     best_synset, max_overlaps = max(overlaps.iteritems(), key=lambda (synset, overlaps): overlaps)
     if max_overlaps == 0 :
         raise NoSenseFound()

@@ -32,3 +32,8 @@ class LeskTest(TestCase):
         with self.assertRaises(NoSenseFound):
             sent = '1982 was my first year'
             lesk(sent, '1982')
+
+    def test_raises_when_asking_for_pos_and_no_synset(self):
+        with self.assertRaises(NoSenseFound):
+            sent = "I have kicked your ass"
+            lesk(sent, 'kicked', pos='n')
